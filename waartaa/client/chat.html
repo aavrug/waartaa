@@ -304,7 +304,7 @@
       <li><p>{{topic}}<p></li>
     </ul>
   </div>
-  <div class="chat-logs-container nano channel" data-channel-id="{{ _id }}" style="overflow-y: auto; overflow-x: hidden;">
+  <div class="chat-logs-container nano channel" data-channel-id="{{ _id }}">
     {{> channel_chat_logs_table}}
   </div>
 </div>
@@ -392,7 +392,7 @@
           {{# unless from}}
             <icon class="glyphicon glyphicon-info-sign"></icon>
           {{/unless}}
-          {{message}}
+          {{{linkify message}}}
       </div>
       <div class="pull-right chatlog-time">
         <em class="pull-right chat-message-datetime">
@@ -439,10 +439,7 @@
       <div class="col-md-8">
         <form id="chat-input-form">
           <div class="input-group">
-              <div class="input-group-btn dropup">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">{{ server_current_nick }} <span class="caret"></button>
-                {{> user_nick_options_menu}}
-              </div>
+              {{> user_nick_options_btn}}
               <input id="chat-input" class="form-control" name="chat_input" type="text"
                autocomplete="off">
           </div>
@@ -452,6 +449,17 @@
     </div>
   </div>
 </div>
+</template>
+
+<template name="user_nick_options_btn">
+<div class="input-group-btn dropup">
+    {{#if server_current_nick}}
+      <button id="user-nick-options-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">{{ server_current_nick }} <span class="caret"></button>
+      {{> user_nick_options_menu}}
+    {{else}}
+      <button id="user-nick-options-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1" disabled="disabled"> <span class="caret"></button>
+    {{/if}}
+  </div>
 </template>
 
 <template name="user_nick_options_menu">
